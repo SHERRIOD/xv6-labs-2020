@@ -275,6 +275,9 @@ fork(void)
   }
   np->sz = p->sz;
 
+  // copy mask
+  np->mask = p->mask;
+
   np->parent = p;
 
   // copy saved user registers.
@@ -692,4 +695,16 @@ procdump(void)
     printf("%d %s %s", p->pid, state, p->name);
     printf("\n");
   }
+}
+
+//obtain the count of procs
+int
+procount(void){
+  struct proc* p;
+  int count = 0;
+  for(p = proc; p < &proc[NPROC]; p++){
+    if(UNUSED==p->state);
+    else count++;
+  }
+  return count;
 }
